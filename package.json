@@ -1,0 +1,141 @@
+{
+  "name": "onlinecompiler",
+  "displayName": "OnlineCompiler.io: Run Code Online",
+  "description": "Run code in 46 languages without installing compilers. Sends the current file to the OnlineCompiler.io API and shows the output.",
+  "version": "0.1.0",
+  "publisher": "onlinecompiler",
+  "license": "MIT",
+  "icon": "images/icon.png",
+  "homepage": "https://onlinecompiler.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/onlinecompiler-io/onlinecompiler-vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/onlinecompiler-io/onlinecompiler-vscode/issues"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "run code",
+    "compiler",
+    "online compiler",
+    "code runner",
+    "run",
+    "python",
+    "java",
+    "c++",
+    "c",
+    "javascript",
+    "no install",
+    "sandbox"
+  ],
+  "pricing": "Free",
+  "main": "./dist/extension.js",
+  "activationEvents": [],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "onlinecompiler.runFile",
+        "title": "Run File",
+        "category": "OnlineCompiler",
+        "icon": "$(play)"
+      },
+      {
+        "command": "onlinecompiler.stop",
+        "title": "Stop Run",
+        "category": "OnlineCompiler",
+        "icon": "$(debug-stop)",
+        "enablement": "onlinecompiler.running"
+      },
+      {
+        "command": "onlinecompiler.setApiKey",
+        "title": "Set API Key",
+        "category": "OnlineCompiler"
+      },
+      {
+        "command": "onlinecompiler.chooseLanguage",
+        "title": "Choose Language",
+        "category": "OnlineCompiler"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "onlinecompiler.runFile",
+          "when": "!onlinecompiler.running && (resourceExtname =~ /^\\.(py|pyw|c|cpp|cc|cxx|c\\+\\+|java|cs|fs|fsx|php|rb|hs|go|rs|ts|js|mjs|cjs|sql|sh|bash|f90|f95|f03|f08|vb|kt|r|swift|cob|cbl|cobol|pl|jl|pas|pp|m|asm|nasm|lua|ml|lisp|lsp|erl|exs|ex|d|bas|dart|clj|groovy|gvy|scala|sc|zig|nim|cr|adb|ada|ps1|rkt)$/i || editorLangId =~ /^(python|c|cpp|java|csharp|fsharp|php|ruby|haskell|go|rust|typescript|javascript|sql|shellscript|fortran|FortranFreeForm|vb|kotlin|r|swift|cobol|COBOL|perl|julia|pascal|objectpascal|octave|matlab|nasm|lua|ocaml|commonlisp|lisp|erlang|elixir|prolog|d|freebasic|dart|clojure|groovy|scala|zig|nim|crystal|ada|powershell|racket|objective-c)$/)",
+          "group": "navigation"
+        },
+        {
+          "command": "onlinecompiler.stop",
+          "when": "onlinecompiler.running",
+          "group": "navigation"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "onlinecompiler.stop",
+          "when": "onlinecompiler.running"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "onlinecompiler.runFile",
+        "key": "ctrl+alt+r",
+        "mac": "cmd+alt+r",
+        "when": "editorTextFocus"
+      }
+    ],
+    "configuration": {
+      "title": "OnlineCompiler.io",
+      "properties": {
+        "onlinecompiler.apiBase": {
+          "type": "string",
+          "default": "https://api.onlinecompiler.io",
+          "pattern": "^https?://",
+          "scope": "application",
+          "markdownDescription": "Base URL of the OnlineCompiler.io API. Runs are sent to `<apiBase>/api/run-code-sync/`. Only user settings can change it, so a workspace cannot send your code or key elsewhere."
+        },
+        "onlinecompiler.askForInput": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "When no `<file>.in` (such as `main.py.in`) or `input.txt` is beside the file, ask for the program's input (stdin) before each run."
+        },
+        "onlinecompiler.clearOutput": {
+          "type": "boolean",
+          "default": true,
+          "description": "Clear the OnlineCompiler.io output before each run."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "node scripts/build.mjs extension",
+    "check": "tsc -p .",
+    "test": "node scripts/build.mjs tests && node --test \"out/test/*.test.js\"",
+    "test:e2e": "npm run build && node scripts/build.mjs tests && node out/test/e2e/run-e2e.js",
+    "readme": "node scripts/build.mjs readme",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.0",
+    "@types/vscode": "~1.90.0",
+    "@vscode/test-electron": "^3.1.0",
+    "@vscode/vsce": "^4.1.1",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2"
+  }
+}
