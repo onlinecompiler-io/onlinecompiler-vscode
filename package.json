@@ -2,7 +2,7 @@
   "name": "onlinecompiler",
   "displayName": "OnlineCompiler.io: Run Code Online",
   "description": "Run code in 46 languages without installing compilers. Sends the current file to the OnlineCompiler.io API and shows the output.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "onlinecompiler",
   "license": "MIT",
   "icon": "images/icon.png",

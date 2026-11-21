@@ -69,9 +69,10 @@ export function normalizeBase(apiBase: string | undefined): string {
 	return base || DEFAULT_API_BASE;
 }
 
-/** The dashboard page where a signed-in user makes and copies API keys. */
+/** The dashboard page where a signed-in user makes and copies API keys, tagged so that an account
+ * made from it counts the extension as its source. */
 export function apiKeysUrl(apiBase?: string): string {
-	return `${normalizeBase(apiBase)}/compilers/api-keys/`;
+	return `${normalizeBase(apiBase)}/compilers/api-keys/?utm_source=vscode`;
 }
 
 /** A key as the user pasted it, without spaces around it or a "Bearer " prefix copied from an example. */

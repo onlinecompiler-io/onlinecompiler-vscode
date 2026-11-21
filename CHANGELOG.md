@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+
+- The API keys link the extension opens says it came from the extension, so OnlineCompiler.io can count sign-ups from VS Code.
+
 ## 0.1.0
 
 First release.

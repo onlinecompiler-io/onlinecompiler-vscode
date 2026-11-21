@@ -174,8 +174,8 @@ describe('keys and URLs', () => {
 	});
 
 	it('builds the API keys page from the API base', () => {
-		assert.equal(apiKeysUrl(), 'https://api.onlinecompiler.io/compilers/api-keys/');
-		assert.equal(apiKeysUrl('http://localhost:8000/'), 'http://localhost:8000/compilers/api-keys/');
+		assert.equal(apiKeysUrl(), 'https://api.onlinecompiler.io/compilers/api-keys/?utm_source=vscode');
+		assert.equal(apiKeysUrl('http://localhost:8000/'), 'http://localhost:8000/compilers/api-keys/?utm_source=vscode');
 		assert.equal(normalizeBase('  '), 'https://api.onlinecompiler.io');
 	});
 });
